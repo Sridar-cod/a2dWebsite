@@ -77,7 +77,7 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData)
-    fetch("http://localhost:3000/api/enquiry", {
+    fetch("https://a2dwebsite.onrender.com/api/enquiry", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ export default function Home() {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Errorrrrr:", error);
       });
   };
 
