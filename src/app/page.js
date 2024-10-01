@@ -1,101 +1,153 @@
-import Image from "next/image";
+"use client"; // Add this at the top to mark the file as a Client Component
+
+import { useState,useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+
+const formFields = [
+  { label: "What's your name?", name: "name", type: "text" },
+  { label: "What's your exact age?", name: "age", type: "number" },
+  { label: "Provide your WhatsApp number", name: "whatsapp", type: "text" },
+  { label: "Where are you located at?", name: "location", type: "text", placeholder: "Mention the City or Town" },
+  { label: "What do you do for living?", name: "occupation", type: "text", placeholder: "E.g. Developer, Student, Photographer etc." },
+  { label: "For what purpose does this PC serve you?", name: "purpose", type: "text", placeholder: "E.g. Video Editing, Gaming etc." },
+  {
+    label: "The best investment you are planning for this PC?",
+    name: "investment",
+    type: "select",
+    options: [
+      "Rs 30,000 - Rs 50,000",
+      "Rs 50,000 - Rs 75,000",
+      "Rs 75,000 - Rs 100,000",
+      "More than 1 Lakh",
+      "Other"
+    ]
+  },
+  {
+    label: "When do you need the PC by?",
+    name: "timeline",
+    type: "select",
+    options: ["Right now", "In few days", "In a month", "Other"]
+  },
+  {
+    label: "What is your monthly income?",
+    name: "income",
+    type: "text",
+    placeholder: "*This will help us suggest a best Investment for you*"
+  },
+  {
+    label: "If you have any suggestions or recommendations regarding this PC build, kindly mention it in detail.",
+    name: "suggestions",
+    type: "textarea"
+  }
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // const [enquiries, setEnquiries] = useState([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  // useEffect(() => {
+  //   // Function to fetch data from the API
+  //   const fetchEnquiries = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3000/api/getEnquiry");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch enquiries");
+  //       }
+  //       const data = await response.json(); // Assuming the API returns a JSON response
+  //       console.log(await data)
+  //       setEnquiries(data); // Update state with the fetched data
+  //     } catch (error) {
+  //       console.error("Error fetching enquiriessss:", error);
+  //     }
+  //   };
+
+  //   // Call the fetch function
+  //   fetchEnquiries();
+  // }, []); 
+  const [formData, setFormData] = useState({});
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData)
+    fetch("http://localhost:3000/api/enquiry", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Form submitted successfully!");
+        } else {
+          alert("Form submission failed.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  return (
+    <div className="d-flex flex-column justify-content-center align-items-center bg-black">
+      <form onSubmit={handleSubmit} className="p-4 mt-5 mb-5 bg-white rounded shadow" style={{ maxWidth: "500px", width: "100%" }}>
+        <h2 className="mb-4 text-center">Hii Soldiers</h2>
+        {formFields.map((field, index) => (
+          <div key={index} className="mb-3">
+            <label htmlFor={field.name} className="form-label">{field.label}</label>
+            {field.type === "select" ? (
+              <select
+                name={field.name}
+                onChange={handleInputChange}
+                required
+                className="form-select"
+              >
+                <option value="">Select an option</option>
+                {field.options.map((option, i) => (
+                  <option key={i} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : field.type === "textarea" ? (
+              <textarea
+                name={field.name}
+                onChange={handleInputChange}
+                placeholder={field.placeholder}
+                required
+                className="form-control"
+              />
+            ) : (
+              <input
+                type={field.type}
+                name={field.name}
+                onChange={handleInputChange}
+                placeholder={field.placeholder}
+                required
+                className="form-control"
+              />
+            )}
+          </div>
+        ))}
+        <button type="submit" className="btn btn-primary w-100">Submit</button>
+      </form>
+      {/* <div className="">
+        <h1>data</h1>
+        {enquiries.map((item) => {
+          return (
+            <li>{item.name}</li>
+          )
+        })}
+      </div> */}
+     
     </div>
   );
 }
