@@ -58,27 +58,27 @@ const formFields = [
 ];
 
 export default function Home() {
-  // const [enquiries, setEnquiries] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
 
-  // useEffect(() => {
-  //   // Function to fetch data from the API
-  //   const fetchEnquiries = async () => {
-  //     try {
-  //       const response = await fetch("https://a2dwebsite.onrender.com/api/getEnquiry");
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch enquiriessssss");
-  //       }
-  //       const data = await response.json();
-  //       console.log(await data, "dataaaa");
-  //       setEnquiries(data);
-  //     } catch (error) {
-  //       console.error("Error fetching enquiriessss:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    // Function to fetch data from the API
+    const fetchEnquiries = async () => {
+      try {
+        const response = await fetch("https://a2dwebsite.onrender.com/api/getEnquiry");
+        if (!response.ok) {
+          throw new Error("Failed to fetch enquiriessssss");
+        }
+        const data = await response.json();
+        console.log(await data, "dataaaa");
+        setEnquiries(data);
+      } catch (error) {
+        console.error("Error fetching enquiriessss:", error);
+      }
+    };
 
-  //   // Call the fetch function
-  //   fetchEnquiries();
-  // }, []);
+    // Call the fetch function
+    fetchEnquiries();
+  }, []);
   const [formData, setFormData] = useState({});
 
   const handleInputChange = (e) => {
@@ -92,8 +92,8 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fetch("https://a2dwebsite.onrender.com/api/enquiry", {
-    // fetch("http://localhost:3000/api/enquiry", {
+    // fetch("https://a2dwebsite.onrender.com/api/enquiry", {
+    fetch("http://localhost:3000/api/enquiry", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

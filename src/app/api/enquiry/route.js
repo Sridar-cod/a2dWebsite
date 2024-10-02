@@ -80,24 +80,28 @@ export async function POST(req) {
     });
   }
 }
-
 export async function GET(req) {
   try {
-    await connectMongo(); // Connect to MongoDB
+    await connectMongo();  // Connect to MongoDB
 
-    const enquiries = await EnquiryModel.find({}); // Fetch all enquiries
+    const enquiries = await EnquiryModel.find({});  // Fetch all enquiries
     return new Response(JSON.stringify(enquiries), {
       status: 200, // Success
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store", // No caching
+        "Access-Control-Allow-Origin": "https://a2dadmin.onrender.com",  // Allow only the admin domain
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",  // Allow specific methods
+        "Access-Control-Allow-Headers": "Content-Type",  // Allow certain headers
       },
     });
   } catch (err) {
     return new Response(JSON.stringify({ message: err.message }), {
       status: 500, // Internal server error
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "https://a2dadmin.onrender.com",  // Allow only the admin domain
+      },
     });
   }
 }
-
