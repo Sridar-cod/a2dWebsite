@@ -19,6 +19,8 @@ const formFields = [
 export default function Home() {
   const [formData, setFormData] = useState({});
   const [isModelVisible, setIsModelVisible] = useState(true);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,7 +43,9 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     console.log(formData);
+
     fetch("https://a2dwebsite.onrender.com/api/enquiry", {
       method: "POST",
       headers: {
@@ -51,14 +55,22 @@ export default function Home() {
     })
       .then((response) => {
         if (response.ok) {
-          alert("Form submitted successfully!");
+          setModalMessage("Form submitted successfully!");
         } else {
-          alert("Form submission failed.");
+          setModalMessage("Form submission failed retry after some time.");
         }
+        setModalVisible(true);
+        setFormData({});
       })
       .catch((error) => {
         console.error("Error:", error);
+        setModalMessage("An error occurred. Please try again.");
+        setModalVisible(true);
       });
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -68,7 +80,7 @@ export default function Home() {
           {isModelVisible && (
             <model-viewer
               src="/images/computer.glb"
-              alt="3D model of a black hole"
+              alt="3D model of a computer"
               auto-rotate
               camera-controls
               style={{ height: "60vh", width: "30%", zIndex: 1 }}
@@ -78,7 +90,7 @@ export default function Home() {
 
         <div className="d-flex flex-column justify-content-center align-items-center form-outter">
           <form onSubmit={handleSubmit} className="p-4 mt-5 mb-5 form rounded shadow">
-            <h2 className="mb-4 text-center">PC Customization Form</h2>
+            <h2 className="mb-4 text-center">PC Enquiry Form</h2>
             {formFields.map((field, index) => (
               <div key={index} className="mb-3">
                 <label htmlFor={field.name} className="form-label custom-label">
@@ -88,6 +100,7 @@ export default function Home() {
                   <select
                     name={field.name}
                     onChange={handleInputChange}
+                    value={formData[field.name] || ""}
                     required
                     className="form-select"
                   >
@@ -103,6 +116,7 @@ export default function Home() {
                     name={field.name}
                     onChange={handleInputChange}
                     placeholder={field.placeholder}
+                    value={formData[field.name] || ""}
                     required
                     className="form-control"
                   />
@@ -112,6 +126,7 @@ export default function Home() {
                     name={field.name}
                     onChange={handleInputChange}
                     placeholder={field.placeholder}
+                    value={formData[field.name] || ""}
                     required
                     className="form-control"
                   />
@@ -128,7 +143,7 @@ export default function Home() {
           {isModelVisible && (
             <model-viewer
               src="/images/computerBot.glb"
-              alt="3D model of a black hole"
+              alt="3D model of a computer"
               auto-rotate
               camera-controls
               style={{ height: "50vh", width: "100%", zIndex: 1 }}
@@ -136,6 +151,27 @@ export default function Home() {
           )}
         </div>
       </main>
+
+      <div className={`modal fade ${modalVisible ? "show" : ""}`} style={{ display: modalVisible ? "block" : "none" }} tabIndex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden={!modalVisible}>
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="modalTitle">Form Submission</h5>
+              <button type="button" className="close" onClick={handleModalClose}>
+                <span>&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>{modalMessage}</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={handleModalClose}>
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
