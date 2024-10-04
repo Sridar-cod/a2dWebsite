@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const formFields = [
   { label: "What's your name?", placeholder: "linga..", name: "name", type: "text" },
@@ -71,7 +71,7 @@ export default function Home() {
               alt="3D model of a black hole"
               auto-rotate
               camera-controls
-              style={{ height: "100vh", width: "40%", zIndex: 1 }}
+              style={{ height: "60vh", width: "30%", zIndex: 1 }}
             ></model-viewer>
           )}
         </div>
@@ -124,14 +124,14 @@ export default function Home() {
           </form>
         </div>
 
-        <div className="animi-bottom">
+        <div className="animi-bottom ">
           {isModelVisible && (
             <model-viewer
               src="/images/computerBot.glb"
               alt="3D model of a black hole"
               auto-rotate
               camera-controls
-              style={{ height: "100vh", width: "100%", zIndex: 1 }}
+              style={{ height: "50vh", width: "100%", zIndex: 1 }}
             ></model-viewer>
           )}
         </div>
