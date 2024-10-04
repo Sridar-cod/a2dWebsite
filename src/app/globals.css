@@ -25,3 +25,45 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.main {
+  position: relative;
+  background-image: url('/images/bg2.png');
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-size: cover;
+}
+.form-outter{
+  backdrop-filter: blur(3px); 
+  -webkit-backdrop-filter: blur(5px);
+}
+.animi{
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  }
+.animi-bottom{
+    width: 30%;
+  position:absolute;
+  top: 30%;
+}
+.form{ 
+  border-radius: 10px;
+  padding: 0px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 15px;
+  /* color: #ededed; */
+  background-color: #ffffff7d;
+  
+}
+.custom-label{
+  font-weight: 700;
+}
+
+
+
+

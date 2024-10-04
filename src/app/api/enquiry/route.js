@@ -1,46 +1,8 @@
-// import { connectMongo } from "../../../../utils/connectMongo";
-// import EnquiryModel from "../../../../models/enquiryModel";
-
-// export async function POST(req) {
-//   try {
-//     const {
-//       suggestions,
-//       income,
-//       timeline,
-//       investment,
-//       purpose,
-//       occupation,
-//       location,
-//       whatsapp,
-//       age,
-//       name,
-//     } = await req.json();
-//     const enquiry = {
-//       suggestions,
-//       income,
-//       timeline,
-//       investment,
-//       purpose,
-//       occupation,
-//       location,
-//       whatsapp,
-//       age,
-//       name,
-//     };
-//     await connectMongo();
-//     await EnquiryModel.create(enquiry);
-//     return Response.json({ message: "Enquiry has beenaaaa send" });
-//   } catch (err) {
-//     return Response.json({ message: err.message });
-//   }
-// }import { connectMongo } from "../../../../utils/connectMongo";
 import EnquiryModel from "../../../../models/enquiryModel";
- import { connectMongo } from "../../../../utils/connectMongo";
-
-// The default export handles the incoming requests
+import { connectMongo } from "../../../../utils/connectMongo";
 export async function POST(req) {
   try {
-    await connectMongo(); // Connect to MongoDB
+    await connectMongo(); 
 
     const {
       suggestions,
@@ -68,39 +30,39 @@ export async function POST(req) {
       name,
     };
 
-    await EnquiryModel.create(enquiry); // Create a new enquiry entry
+    await EnquiryModel.create(enquiry);
     return new Response(JSON.stringify({ message: "Enquiry has been sent" }), {
-      status: 201, // Created status
+      status: 201, 
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
     return new Response(JSON.stringify({ message: err.message }), {
-      status: 500, // Internal server error
+      status: 500, 
       headers: { "Content-Type": "application/json" },
     });
   }
 }
 export async function GET(req) {
   try {
-    await connectMongo();  // Connect to MongoDB
+    await connectMongo();  
 
-    const enquiries = await EnquiryModel.find({});  // Fetch all enquiries
+    const enquiries = await EnquiryModel.find({});  
     return new Response(JSON.stringify(enquiries), {
-      status: 200, // Success
+      status: 200, 
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "no-store", // No caching
-        "Access-Control-Allow-Origin": "https://a2dadmin.onrender.com",  // Allow only the admin domain
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",  // Allow specific methods
-        "Access-Control-Allow-Headers": "Content-Type",  // Allow certain headers
+        "Cache-Control": "no-store", 
+        "Access-Control-Allow-Origin": "https://a2dadmin.onrender.com",  
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",  
+        "Access-Control-Allow-Headers": "Content-Type",  
       },
     });
   } catch (err) {
     return new Response(JSON.stringify({ message: err.message }), {
-      status: 500, // Internal server error
+      status: 500, 
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "https://a2dadmin.onrender.com",  // Allow only the admin domain
+        "Access-Control-Allow-Origin": "https://a2dadmin.onrender.com",  
       },
     });
   }

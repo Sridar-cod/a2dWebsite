@@ -13,7 +13,7 @@ const enquirySchema = new Schema({
   suggestions: { type: String },
 }, { timestamps: true });
 
-// Check if model already exists in the cache, else create a new one
+
 const EnquiryModel = models.Enquiry || model('Enquiry', enquirySchema);
 
 export default EnquiryModel;
